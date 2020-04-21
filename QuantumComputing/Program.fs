@@ -19,7 +19,7 @@ let prettyComplex (c:complex) =
               -> prettyNumber r + " + " + prettyNumber i + "i"
   | r,      i -> prettyNumber r + " - " + prettyNumber (abs i) + "i"
 
-type QuantumState (a: complex, l: string) =
+type QS (a: complex, l: string) =
   member x.Amplitude = a
   member x.Label = l
   override x.ToString() =
@@ -29,7 +29,6 @@ type QuantumState (a: complex, l: string) =
         else prettyComplex a
     f(x.Amplitude) + "|" + x.Label + ">"
 
-type QS = QuantumState
 let QS a l = QS (a, l)
 
 let toPair (qs: QS) = (qs.Amplitude, qs.Label)
