@@ -19,7 +19,7 @@ let prettyComplex (c:complex) =
               -> prettyNumber r + " + " + prettyNumber i + "i"
   | r,      i -> prettyNumber r + " - " + prettyNumber (abs i) + "i"
 
-type QS (a: complex, l: string) =
+type QuantumState (a: complex, l: string) =
   member x.Amplitude = a
   member x.Label = l
   override x.ToString() =
@@ -29,24 +29,27 @@ type QS (a: complex, l: string) =
         else prettyComplex a
     f(x.Amplitude) + "|" + x.Label + ">"
 
+type QS = QuantumState
+let QS c l = QS (c, l)
+
 let toPair (qs: QS) = (qs.Amplitude, qs.Label)
 
-let fromPair (c:complex) (l:string) = QS (c, l)
+let fromPair (c:complex) (l:string) = QS c l
 
-let applyQS f (qs: QS) = QS (f qs.Amplitude, qs.Label)
+let applyQS f (qs: QS) = QS (f qs.Amplitude) qs.Label
 
 [<EntryPoint>]
 let main argv =
-  printfn "%A" <| QS (complex (sqrt(0.5)) 0.0, "+")
-  printfn "%A" <| QS (complex 0.0 (sqrt(0.5)), "+")
-  printfn "%A" <| QS (complex 1.0 0.0, "+")
-  printfn "%A" <| QS (complex -1.0 0.0, "+")
-  printfn "%A" <| QS (complex 0.0 1.0, "+")
-  printfn "%A" <| QS (complex 0.0 -1.0, "+")
-  printfn "%A" <| QS (complex 1.0 -1.0, "+")
-  printfn "%A" <| QS (complex 0.0 0.0, "+")
-  printfn "%A" <| QS (complex (sqrt(0.5)) (sqrt(0.5)), "+")
-  printfn "%A" <| QS (complex -(sqrt(0.5)) (sqrt(0.5)), "+")
-  printfn "%A" <| QS (complex (sqrt(0.5)) -(sqrt(0.5)), "+")
-  printfn "%A" <| QS (complex -(sqrt(0.5)) -(sqrt(0.5)), "+")
+  printfn "%A" <| QS (complex (sqrt(0.5)) 0.0) "+"
+  printfn "%A" <| QS (complex 0.0 (sqrt(0.5))) "+"
+  printfn "%A" <| QS (complex 1.0 0.0) "+"
+  printfn "%A" <| QS (complex -1.0 0.0) "+"
+  printfn "%A" <| QS (complex 0.0 1.0) "+"
+  printfn "%A" <| QS (complex 0.0 -1.0) "+"
+  printfn "%A" <| QS (complex 1.0 -1.0) "+"
+  printfn "%A" <| QS (complex 0.0 0.0) "+"
+  printfn "%A" <| QS (complex (sqrt(0.5)) (sqrt(0.5))) "+"
+  printfn "%A" <| QS (complex -(sqrt(0.5)) (sqrt(0.5))) "+"
+  printfn "%A" <| QS (complex (sqrt(0.5)) -(sqrt(0.5))) "+"
+  printfn "%A" <| QS (complex -(sqrt(0.5)) -(sqrt(0.5))) "+"
   0 // return an integer exit code
