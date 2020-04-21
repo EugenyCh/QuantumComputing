@@ -29,16 +29,24 @@ type QS (a: complex, l: string) =
         else prettyComplex a
     f(x.Amplitude) + "|" + x.Label + ">"
 
+let toPair (qs: QS) = (qs.Amplitude, qs.Label)
+
+let fromPair (c:complex) (l:string) = QS (c, l)
+
+let applyQS f (qs: QS) = QS (f qs.Amplitude, qs.Label)
+
 [<EntryPoint>]
 let main argv =
-  printf "%A\n" <| QS (complex (sqrt(0.5)) 0.0, "+")
-  printf "%A\n" <| QS (complex 0.0 (sqrt(0.5)), "+")
-  printf "%A\n" <| QS (complex 1.0 0.0, "+")
-  printf "%A\n" <| QS (complex -1.0 0.0, "+")
-  printf "%A\n" <| QS (complex 0.0 1.0, "+")
-  printf "%A\n" <| QS (complex 0.0 -1.0, "+")
-  printf "%A\n" <| QS (complex (sqrt(0.5)) (sqrt(0.5)), "+")
-  printf "%A\n" <| QS (complex -(sqrt(0.5)) (sqrt(0.5)), "+")
-  printf "%A\n" <| QS (complex (sqrt(0.5)) -(sqrt(0.5)), "+")
-  printf "%A\n" <| QS (complex -(sqrt(0.5)) -(sqrt(0.5)), "+")
+  printfn "%A" <| QS (complex (sqrt(0.5)) 0.0, "+")
+  printfn "%A" <| QS (complex 0.0 (sqrt(0.5)), "+")
+  printfn "%A" <| QS (complex 1.0 0.0, "+")
+  printfn "%A" <| QS (complex -1.0 0.0, "+")
+  printfn "%A" <| QS (complex 0.0 1.0, "+")
+  printfn "%A" <| QS (complex 0.0 -1.0, "+")
+  printfn "%A" <| QS (complex 1.0 -1.0, "+")
+  printfn "%A" <| QS (complex 0.0 0.0, "+")
+  printfn "%A" <| QS (complex (sqrt(0.5)) (sqrt(0.5)), "+")
+  printfn "%A" <| QS (complex -(sqrt(0.5)) (sqrt(0.5)), "+")
+  printfn "%A" <| QS (complex (sqrt(0.5)) -(sqrt(0.5)), "+")
+  printfn "%A" <| QS (complex -(sqrt(0.5)) -(sqrt(0.5)), "+")
   0 // return an integer exit code
