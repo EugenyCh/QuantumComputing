@@ -30,11 +30,11 @@ type QuantumState (a: complex, l: string) =
     f(x.Amplitude) + "|" + x.Label + ">"
 
 type QS = QuantumState
-let QS c l = QS (c, l)
+let QS a l = QS (a, l)
 
 let toPair (qs: QS) = (qs.Amplitude, qs.Label)
 
-let fromPair (c:complex) (l:string) = QS c l
+let fromPair (a:complex) (l:string) = QS a l
 
 let applyQS f (qs: QS) = QS (f qs.Amplitude) qs.Label
 
